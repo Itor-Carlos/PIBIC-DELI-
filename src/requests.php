@@ -1,6 +1,12 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
 
+// header("Access-Control-Allow-Origin: *");
+
+// // Desativar exibição de erros no JSON (apenas para debug)
+// ini_set('display_errors', 0);
+// error_reporting(0);
+
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -14,14 +20,15 @@ if ($con->connect_error) {
 }
 
 $sql = "SELECT 
-            cat.id_categoria, 
+            cat.id_categoria,
+            cat.icon AS categoria_icon, 
             cat.nome AS categoria_nome, 
             pal.id_palavra, 
             pal.nome AS palavra_nome, 
             dem.id AS id_demonstracao,
             dem.link, 
             dem.midia, 
-            dem.explicacao
+            dem.explicao
         FROM categoria cat
         LEFT JOIN palavra pal ON cat.id_categoria = pal.id_categoria
         LEFT JOIN demonstracao dem ON pal.id_palavra = dem.id_palavra
@@ -38,6 +45,7 @@ while ($row = $result->fetch_assoc()) {
         $data[$id_categoria] = [
             "id_categoria" => $id_categoria,
             "nome" => $row['categoria_nome'],
+            "icon" => $row['categoria_icon'],
             "palavras" => []
         ];
     }
@@ -56,7 +64,7 @@ while ($row = $result->fetch_assoc()) {
                 "id" => $row['id_demonstracao'],
                 "link" => $row['link'],
                 "midia" => $row['midia'],
-                "explicacao" => $row['explicacao']
+                "explicacao" => $row['explicao']
             ];
         }
     }
@@ -67,7 +75,7 @@ foreach ($data as &$categoria) {
     $categoria["palavras"] = array_values($categoria["palavras"]);
 }
 
-echo json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+echo json_encode(["data" => $data]);
 
 $con->close();
 ?>

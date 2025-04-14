@@ -4,8 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glossário Sergipano</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="index.css">
     <link rel="shortcut icon" href="icon/dicon.ico" type="image/x-icon">
+    <style>
+        .word-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .word-content.active {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in;
+        }
+        
+        .word-main span:last-child {
+            transition: transform 0.3s ease;
+        }
+
+        .demonstration-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .nav-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .nav-button:disabled {
+            background: var(--secondary);
+            cursor: not-allowed;
+        }
+
+        .demonstration-count {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -24,7 +76,6 @@
     </div>
 
     <main class="main-content">
-        <!-- Home Tab Content -->
         <div id="homeTab" class="tab-content active">
             <div class="home-about">
                 <h2 style="margin-bottom: 1rem; color: var(--primary);">Glossário Sergipano em Libras</h2>
@@ -39,197 +90,25 @@
         </div>
 
         <div id="palavrasTab" class="tab-content">
-            <h2 style="margin-bottom: 1.5rem;">Todas as Palavras</h2>
-            
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Pesquisar palavras, sinais ou descrições..." id="searchInput">
             </div>
             
-            <div class="categories" id="categoriesContainer">
+            <div class="palavras-layout">
+                <div class="sidebar">
+                    <h3>Categorias</h3>
+                    <div class="category-menu" id="categoryMenu">
+                    </div>
+                </div>
+
+                <div class="content-area">
+                    <h2 id="selectedCategoryTitle">Todas as Palavras</h2>
+                    <div class="word-container" id="wordContainer">
+                    </div>
+                </div>
             </div>
         </div>
     </main>
-
-    <script>
-        const glossaryData = [
-            {
-                category: 'Bairros e Locais',
-                icon: '🏘️',
-                items: [
-                    {
-                        word: 'Aeroporto',
-                        signwriting: '/api/placeholder/200/200',
-                        videoUrl: 'https://youtu.be/UMS9ZhHEBDQ?list=TLGGo9yv80HfRBwxMzAzMjAyNQ',
-                        description: 'Sinal que representa o Aeroporto Internacional de Aracaju. O movimento combina os sinais de AVIÃO e LOCAL, com uma referência específica à localização na zona sul da cidade.'
-                    },
-                    {
-                        word: 'Atalaia',
-                        signwriting: '/api/placeholder/200/200',
-                        videoUrl: 'about:blank',
-                        description: 'Sinal que representa a praia da Atalaia, combinando os elementos de PRAIA e uma configuração de mão específica que indica a extensão da orla.'
-                    }
-                ]
-            },
-            {
-                category: 'Cultura e Tradições',
-                icon: '🎭',
-                items: [
-                    {
-                        word: 'Forró',
-                        signwriting: '/api/placeholder/200/200',
-                        videoUrl: 'about:blank',
-                        description: 'Sinal que representa a dança típica do forró, mostrando o movimento característico dos casais dançando e a alegria da festividade.'
-                    }
-                ]
-            }
-        ];
-
-        function setupTabs() {
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.getAttribute('data-tab');
-                    
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    button.classList.add('active');
-                    document.getElementById(tabId + 'Tab').classList.add('active');
-                });
-            });
-        }
-
-        function renderCategories() {
-            const container = document.getElementById('categoriesContainer');
-            container.innerHTML = glossaryData.map(category => `
-                <div class="category-card">
-                    <div class="category-header">
-                        <span style="font-size: 1.5rem;">${category.icon}</span>
-                        <h2>${category.category}</h2>
-                    </div>
-                    <div class="word-list">
-                        ${category.items.map(item => `
-                            <div class="word-item">
-                                <div class="word-main" onclick="toggleContent(this)">
-                                    <span>${item.word}</span>
-                                    <span style="color: var(--primary)">▼</span>
-                                </div>
-                                <div class="word-content">
-                                    <div class="content-grid">
-                                        <div class="signwriting-section">
-                                            <h3 class="section-title">Escrita de Sinais</h3>
-                                            <img src="${item.signwriting}" alt="Escrita de sinais para ${item.word}" class="signwriting-image">
-                                        </div>
-                                        <div class="video-section">
-                                            <h3 class="section-title">Vídeo do Sinal</h3>
-                                            <div class="video-wrapper">
-                                                <iframe src="${item.videoUrl}" title="${item.word} em Libras" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="description-section">
-                                        <h3 class="section-title">Descrição</h3>
-                                        <p class="description-text">${item.description}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function toggleContent(element) {
-            const content = element.nextElementSibling;
-            const arrow = element.querySelector('span:last-child');
-            content.classList.toggle('active');
-            arrow.style.transform = content.classList.contains('active') ? 'rotate(180deg)' : '';
-        }
-
-        function handleSearch() {
-            const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                
-                const filteredData = glossaryData.map(category => {
-                    const filteredItems = category.items.filter(item => 
-                        item.word.toLowerCase().includes(searchTerm) ||
-                        item.description.toLowerCase().includes(searchTerm)
-                    );
-                    
-                    return {
-                        ...category,
-                        items: filteredItems
-                    };
-                }).filter(category => category.items.length > 0);
-                
-                renderFilteredCategories(filteredData);
-            });
-        }
-
-        function renderFilteredCategories(filteredData) {
-            const container = document.getElementById('categoriesContainer');
-            
-            if (filteredData.length === 0) {
-                container.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--text-light);">Nenhuma palavra encontrada para esta pesquisa.</p>';
-                return;
-            }
-            
-            container.innerHTML = filteredData.map(category => `
-                <div class="category-card">
-                    <div class="category-header">
-                        <span style="font-size: 1.5rem;">${category.icon}</span>
-                        <h2>${category.category}</h2>
-                    </div>
-                    <div class="word-list">
-                        ${category.items.map(item => `
-                            <div class="word-item">
-                                <div class="word-main" onclick="toggleContent(this)">
-                                    <span>${item.word}</span>
-                                    <span style="color: var(--primary)">▼</span>
-                                </div>
-                                <div class="word-content">
-                                    <div class="content-grid">
-                                        <div class="signwriting-section">
-                                            <h3 class="section-title">Escrita de Sinais</h3>
-                                            <img src="${item.signwriting}" alt="Escrita de sinais para ${item.word}" class="signwriting-image">
-                                        </div>
-                                        <div class="video-section">
-                                            <h3 class="section-title">Vídeo do Sinal</h3>
-                                            <div class="video-wrapper">
-                                                <iframe src="${item.videoUrl}" title="${item.word} em Libras" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="description-section">
-                                        <h3 class="section-title">Descrição</h3>
-                                        <p class="description-text">${item.description}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            setupTabs();
-            renderCategories();
-            handleSearch();
-        });
-
-        async function teste(){
-            const request = await fetch('requests.php');
-            const data = await request.json();
-            console.log(data)
-        }
-
-        teste();
-        
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>
