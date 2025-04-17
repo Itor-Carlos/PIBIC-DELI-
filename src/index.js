@@ -144,9 +144,13 @@ function renderWordItems(items, loadVideos) {
             <div class="word-content">
                 ${hasDemonstrations && item.demonstrations.length > 1 ? `
                 <div class="demonstration-nav">
-                    <button class="nav-button prev-demo" data-current="0" data-total="${item.demonstrations.length}" disabled>&lt;</button>
+                    <button class="nav-button prev-demo" data-current="0" data-total="${item.demonstrations.length}" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
                     <span class="demonstration-count">Demonstração 1 de ${item.demonstrations.length}</span>
-                    <button class="nav-button next-demo" data-current="0" data-total="${item.demonstrations.length}">&gt;</button>
+                    <button class="nav-button next-demo" data-current="0" data-total="${item.demonstrations.length}">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
                 ` : ''}
                 <div class="demonstration-container" data-current-demo="0">
