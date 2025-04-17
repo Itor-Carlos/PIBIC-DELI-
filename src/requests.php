@@ -32,7 +32,7 @@ $sql = "SELECT
         FROM categoria cat
         LEFT JOIN palavra pal ON cat.id_categoria = pal.id_categoria
         LEFT JOIN demonstracao dem ON pal.id_palavra = dem.id_palavra
-        ORDER BY cat.id_categoria, pal.id_palavra, dem.id";
+        ORDER BY cat.id_categoria, pal.nome, dem.id";
 
 $result = $con->query($sql);
 
