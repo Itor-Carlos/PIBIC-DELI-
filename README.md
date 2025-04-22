@@ -22,8 +22,8 @@ Este repositório contém os materiais e recursos do projeto de Iniciação Cien
 
 ## 🛠 Tecnologias Utilizadas
 
-- HTML5, CSS3 e JavaScript
-- PHP
+- HTML5, CSS3 e JavaScript para desenvolvimento do frontend
+- PHP para desenvolvimento do backend
 - Git e GitHub para controle de versão
 - XAMPP
 - MySQL para banco de dados
