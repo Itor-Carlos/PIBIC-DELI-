@@ -37,7 +37,6 @@ async function fetchGlossaryData() {
         
         renderCategoryMenu(glossaryData);
         
-        // Ao carregar, mostrar a primeira categoria ao invés de todas
         if (glossaryData.length > 0) {
             const firstCategory = glossaryData[0].category;
             document.getElementById('selectedCategoryTitle').textContent = firstCategory;
@@ -55,10 +54,8 @@ async function fetchGlossaryData() {
 function renderCategoryMenu(data) {
     const menuContainer = document.getElementById('categoryMenu');
 
-    // Removendo a categoria "Todas as categorias"
     const categoriesHtml = data.map((category, index) => `
         <div class="category-item ${index === 0 ? 'active' : ''}" data-category="${category.category}">
-            <span style="font-size: 1.2rem;">${category.icon}</span>
             <span>${category.category}</span>
         </div>
     `).join('');
@@ -88,7 +85,6 @@ function renderAllWords(data) {
         allWordsHtml += `
             <div class="category-section">
                 <div class="category-header">
-                    <span style="font-size: 1.5rem;">${category.icon}</span>
                     <h3>${category.category}</h3>
                 </div>
                 <div class="word-list">
@@ -215,8 +211,6 @@ function setupWordToggles() {
     const wordMains = document.querySelectorAll('.word-main');
     wordMains.forEach(item => {
         item.addEventListener('click', function() {
-            // Esta função está vazia no código original
-            // Aqui verificamos se há placeholders de vídeo para carregar
             const content = this.nextElementSibling;
             const videoPlaceholders = content.querySelectorAll('.video-placeholder');
             
@@ -239,7 +233,7 @@ function setupWordToggles() {
 }
 
 function setupDemonstrationNavigation() {
-    document.querySelectorAll('.prev-demo').forEach(button => {
+    document.querySelectorAll('.prev-demoi').forEach(button => {
         button.addEventListener('click', function() {
             navigateDemonstration(this, -1);
         });
@@ -275,7 +269,6 @@ function navigateDemonstration(button, direction) {
     container.querySelectorAll('.demonstration').forEach((demo, index) => {
         demo.style.display = index === newIndex ? 'block' : 'none';
         
-        // Carrega o vídeo quando a demonstração se torna visível
         if (index === newIndex) {
             const videoPlaceholder = demo.querySelector('.video-placeholder');
             if (videoPlaceholder) {
@@ -315,7 +308,6 @@ function handleSearch(data) {
         const searchTerm = e.target.value.toLowerCase();
         
         if (searchTerm === '') {
-            // Se a busca estiver vazia e houver categorias, mostre a primeira categoria
             if (data.length > 0) {
                 const firstCategory = data[0].category;
                 document.getElementById('selectedCategoryTitle').textContent = firstCategory;
@@ -357,7 +349,6 @@ function handleSearch(data) {
             filteredHtml += `
                 <div class="category-section">
                     <div class="category-header">
-                        <span style="font-size: 1.5rem;">${category.icon}</span>
                         <h3>${category.category}</h3>
                     </div>
                     <div class="word-list">

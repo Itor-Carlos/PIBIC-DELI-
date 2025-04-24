@@ -1,11 +1,6 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
 
-// header("Access-Control-Allow-Origin: *");
-
-// // Desativar exibição de erros no JSON (apenas para debug)
-// ini_set('display_errors', 0);
-// error_reporting(0);
 
 $host = "localhost";
 $user = "root";
