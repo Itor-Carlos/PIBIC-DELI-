@@ -233,7 +233,7 @@ function setupWordToggles() {
 }
 
 function setupDemonstrationNavigation() {
-    document.querySelectorAll('.prev-demoi').forEach(button => {
+    document.querySelectorAll('.prev-demo').forEach(button => {
         button.addEventListener('click', function() {
             navigateDemonstration(this, -1);
         });
