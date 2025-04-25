@@ -1,5 +1,14 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
+header("Cache-Control: max-age=60");
+
+$cache_file = 'cache.json';
+$cache_time = 60;
+
+if (file_exists($cache_file) && (time() - filemtime($cache_file) < $cache_time)) {
+    echo file_get_contents($cache_file);
+    exit();
+}
 
 
 $host = "localhost";
@@ -70,6 +79,8 @@ foreach ($data as &$categoria) {
     $categoria["palavras"] = array_values($categoria["palavras"]);
 }
 
+
+file_put_contents($cache_file, json_encode(["data" => $data]));
 echo json_encode(["data" => $data]);
 
 $con->close();
