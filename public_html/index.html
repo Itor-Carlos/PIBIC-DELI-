@@ -152,6 +152,44 @@
             overflow: hidden;
             height: 100vh;
         }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.5rem 1rem; /* Reduzindo o padding vertical */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .nav-logo {
+            height: 84px; 
+            width: auto; 
+            object-fit: contain; 
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .nav-logo {
+                height: 84px; 
+            }
+            
+            .logo-container {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -173,7 +211,9 @@
 
     <nav class="navbar">
         <div class="nav-content">
-            <h1>Glossário Sergipano de Libras</h1>
+            <div class="logo-container">
+                <img src="../fotos/logo_oficial_nova.png" alt="Logo Glossário Sergipano" class="nav-logo">
+            </div>
             <div class="nav-links">
                 <a href="#" id="btnApresentacao" style="text-decoration: none; color: var(--text); margin-left: 1rem;">Apresentação</a>
                 <a href="#" id="btnCreditos" style="text-decoration: none; color: var(--text); margin-left: 1rem;">Créditos</a>
@@ -190,7 +230,7 @@
         <div id="homeTab" class="tab-content active">
             <div class="home-about">
                 <h2 style="margin-bottom: 1rem; color: var(--primary);">Glossário Sergipano em Libras</h2>
-                <p style="margin-bottom: 1.5rem; line-height: 1.6;">Aprenda a cultura sergipana em Libras com vídeos, escrita de sinais e descrições detalhadas. Este glossário foi desenvolvido para promover a acessibilidade e valorizar a cultura regional sergipana.</p>
+                <p style="margin-bottom: 1.5rem; line-height: 1.6;">Aprenda a cultura sergipana em Libras com vídeos, escrita de sinais e descrições detalhadas. Este glossário foi desenvolvido para promover a acessibilidade e valorizar a cultura regional sergipana. Aprenda a cultura sergipana em Libras com vídeos, escrita de sinais e descrições detalhadas. Este glossário foi desenvolvido para promover a acessibilidade e valorizar a cultura regional sergipana.</p>
                 
                 <div class="intro-video">
                     <div class="video-wrapper">
