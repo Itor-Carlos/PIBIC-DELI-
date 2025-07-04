@@ -14,7 +14,7 @@ if (file_exists($cache_file) && (time() - filemtime($cache_file) < $cache_time))
 $host = "localhost";
 $user = "root";
 $password = "";
-$db = "pibic";
+$db = "dicion05_pibic";
 
 $con = new mysqli($host, $user, $password, $db);
 
