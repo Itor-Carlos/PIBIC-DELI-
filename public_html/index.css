@@ -311,3 +311,10 @@ body {
         font-size: 0.9rem;
     }
 }
+
+#btnApresentacao, #btnCreditos{
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
