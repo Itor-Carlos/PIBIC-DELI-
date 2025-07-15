@@ -31,8 +31,7 @@ $sql = "SELECT
             pal.nome AS palavra_nome, 
             dem.id AS id_demonstracao,
             dem.link, 
-            dem.midia, 
-            dem.explicao
+            dem.midia
         FROM categoria cat
         LEFT JOIN palavra pal ON cat.id_categoria = pal.id_categoria
         LEFT JOIN demonstracao dem ON pal.id_palavra = dem.id_palavra
@@ -78,7 +77,6 @@ $data = array_values($data);
 foreach ($data as &$categoria) {
     $categoria["palavras"] = array_values($categoria["palavras"]);
 }
-
 
 file_put_contents($cache_file, json_encode(["data" => $data]));
 echo json_encode(["data" => $data]);
