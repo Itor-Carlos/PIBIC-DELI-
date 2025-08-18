@@ -31,7 +31,8 @@ $sql = "SELECT
             pal.nome AS palavra_nome, 
             dem.id AS id_demonstracao,
             dem.link, 
-            dem.midia
+            dem.midia,
+            dem.explicao
         FROM categoria cat
         LEFT JOIN palavra pal ON cat.id_categoria = pal.id_categoria
         LEFT JOIN demonstracao dem ON pal.id_palavra = dem.id_palavra
