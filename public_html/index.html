@@ -156,7 +156,7 @@
         .nav-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0.5rem 1rem; /* Reduzindo o padding vertical */
+            padding: 0.5rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -194,6 +194,46 @@
         #texto_inicial{
             text-align: justify;
         }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px; 
+                right: 10px;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 1rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                display: none; 
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -218,12 +258,18 @@
             <div class="logo-container">
                 <img src="../fotos/logo_oficial_nova.png" alt="Logo Glossário Sergipano" class="nav-logo">
             </div>
-            <div class="nav-links">
-                <a href="#" id="btnApresentacao" style="text-decoration: none; color: var(--text); margin-left: 1rem;">Apresentação</a>
-                <a href="#" id="btnCreditos" style="text-decoration: none; color: var(--text); margin-left: 1rem;">Créditos</a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="#" id="btnApresentacao">Apresentação</a>
+                <a href="#" id="btnCreditos">Créditos</a>
             </div>
         </div>
     </nav>
+
 
     <div class="tab-navigation">
         <button class="tab-button active" data-tab="home">Home</button>

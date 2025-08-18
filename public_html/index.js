@@ -400,3 +400,7 @@ window.addEventListener('click', (e) => {
     iframe.src = '';
     }
 });
+
+document.getElementById("menuToggle").addEventListener("click", () => {
+    document.getElementById("navLinks").classList.toggle("active");
+});
